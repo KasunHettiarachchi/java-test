@@ -257,7 +257,21 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println((double) Math.round(349984.50));*/
+        System.out.println((double) Math.round(349984.50));
+
+        System.out.println(filterDateHourTimeNew("2022-02-14T00:00:00"));*/
+    }
+
+    public static Date filterDateHourTimeNew(String startDateTime) {
+        Date originalDate = null;
+
+        try {
+            originalDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(startDateTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return originalDate;
     }
 
 }
