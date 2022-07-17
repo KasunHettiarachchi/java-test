@@ -338,8 +338,61 @@ public class Main {
 
         number = 6;
         System.out.println(VM.current().addressOf(number));
-        System.out.println(VM.current().addressOf(secondNumber));*/
+        System.out.println(VM.current().addressOf(secondNumber));
 
+        List<String> list = new ArrayList<>(Collections.singletonList("Geeks"));
+        list.add("a");
+        System.out.println(list);
+
+        List<Integer> intList = new ArrayList<>(Arrays.asList(6, 2, 3, 4));
+        intList.sort(Integer::compareTo);
+        System.out.println(intList);
+
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(new Date());
+        System.out.println(calendar.getTime());
+
+        calendar.add(Calendar.MINUTE, (int) (1.55 * 60));
+        System.out.println(calendar.getTime());
+
+        System.out.println(Math.ceil(2.1));
+
+        Book[] books = {
+                new Book("foo", 1, "author1", "pub1"),
+                new Book("bar", 2, "author2", "pub2"),
+                new Book("test", 6, "author3", "pub3")
+        };
+
+        Arrays.sort(books, new Comparator<Book>() {
+            @Override
+            public int compare(Book o1, Book o2) {
+                return o2.id.compareTo(o1.id);
+            }
+        });
+
+        for (Book book : books) {
+            System.out.println(book.getId());
+        }
+
+        // Creating a mutable list using Arrays.asList()
+        List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3));
+
+        // Print the list
+        System.out.println("List : " + list);
+
+        list.add(5);
+        System.out.println("Modified list : " + list);
+
+        // Creating a immutable list using Arrays.asList()
+        List<Integer> list = Arrays.asList(1, 2, 3);
+
+        // Print the list
+        System.out.println("List : " + list);
+
+        list.add(5);
+        System.out.println("Modified list : " + list);*/
     }
 
 
