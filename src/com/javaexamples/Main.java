@@ -1,5 +1,7 @@
 package com.javaexamples;
 
+import org.openjdk.jol.vm.VM;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
@@ -7,6 +9,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static jdk.nashorn.internal.runtime.Debug.id;
 
 public class Main {
     public static void main(String[] args) throws ParseException, InterruptedException {
@@ -259,8 +263,160 @@ public class Main {
 
         System.out.println((double) Math.round(349984.50));
 
-        System.out.println(filterDateHourTimeNew("2022-02-14T00:00:00"));*/
+        System.out.println(filterDateHourTimeNew("2022-02-14T00:00:00"));
+
+        List<List<Integer>> parent = new ArrayList<>();
+        List<Integer> child = new ArrayList<>();
+        child.add(0);
+        parent.add(child);
+
+        System.out.println(parent);
+        System.out.println(id(child));
+
+        int i = 1;
+        while (i < 5) {
+            child.add(i);
+            i += 1;
+
+            System.out.println(child);
+            child = new ArrayList<>();
+            System.out.println(id(child));
+        }
+
+        System.out.println(parent);
+        System.out.println(id(parent.get(0)));
+        System.out.println(child);
+        System.out.println(id(child));
+
+        child = null;
+        System.out.println(id(child));
+
+        Car red = new Car("Red");
+        Car yellow = new Car("Yellow");
+        System.out.println("red car location = " + id(red));
+        System.out.println("yellow car location = " + id(yellow));
+
+
+        swap(red, yellow);
+        System.out.println("red car = " + red.getColor());
+        System.out.println("yellow car = " + yellow.getColor());
+
+
+        desc(yellow);
+        System.out.println("yellow car = " + yellow.getColor());
+
+        int i1 = 5;
+        int i2 = i1;
+
+        System.out.println("i1 location = " + id(i1));
+        System.out.println("i2 location = " + id(i2));
+
+        i1 = 6;
+        System.out.println("i1 location = " + id(i1));
+        System.out.println("i2 location = " + id(i2));
+
+        String value = "hello";
+        String secondValue = value;
+        System.out.println(id(value));
+        System.out.println(String.format("%x", VM.current().addressOf(value)));
+
+        System.out.println("----------------------------");
+
+        System.out.println(VM.current().addressOf(value));
+        System.out.println(VM.current().addressOf(secondValue));
+
+        value = "hello world";
+        System.out.println(VM.current().addressOf(value));
+        System.out.println(VM.current().addressOf(secondValue));
+
+        System.out.println("----------------------------");
+
+        int number = 5;
+        int secondNumber = number;
+        System.out.println(VM.current().addressOf(number));
+        System.out.println(VM.current().addressOf(secondNumber));
+
+        number = 6;
+        System.out.println(VM.current().addressOf(number));
+        System.out.println(VM.current().addressOf(secondNumber));
+
+        List<String> list = new ArrayList<>(Collections.singletonList("Geeks"));
+        list.add("a");
+        System.out.println(list);
+
+        List<Integer> intList = new ArrayList<>(Arrays.asList(6, 2, 3, 4));
+        intList.sort(Integer::compareTo);
+        System.out.println(intList);
+
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(new Date());
+        System.out.println(calendar.getTime());
+
+        calendar.add(Calendar.MINUTE, (int) (1.55 * 60));
+        System.out.println(calendar.getTime());
+
+        System.out.println(Math.ceil(2.1));
+
+        Book[] books = {
+                new Book("foo", 1, "author1", "pub1"),
+                new Book("bar", 2, "author2", "pub2"),
+                new Book("test", 6, "author3", "pub3")
+        };
+
+        Arrays.sort(books, new Comparator<Book>() {
+            @Override
+            public int compare(Book o1, Book o2) {
+                return o2.id.compareTo(o1.id);
+            }
+        });
+
+        for (Book book : books) {
+            System.out.println(book.getId());
+        }
+
+        // Creating a mutable list using Arrays.asList()
+        List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3));
+
+        // Print the list
+        System.out.println("List : " + list);
+
+        list.add(5);
+        System.out.println("Modified list : " + list);
+
+        // Creating a immutable list using Arrays.asList()
+        List<Integer> list = Arrays.asList(1, 2, 3);
+
+        // Print the list
+        System.out.println("List : " + list);
+
+        list.add(5);
+        System.out.println("Modified list : " + list);*/
     }
+
+
+    public static void swap(Object o1, Object o2) {
+        System.out.println("swap o1 location = " + id(o1));
+        System.out.println("swap o2 location = " + id(o2));
+
+        Object temp = o1;
+        o1 = o2;
+        o2 = temp;
+
+        System.out.println("swap o1 location = " + id(o1));
+        System.out.println("swap o2 location = " + id(o2));
+    }
+
+
+    private static void desc(Car car) {
+        System.out.println("desc method car location = " + id(car));
+
+        car.setColor("Red");
+        car = new Car("Green");
+        car.setColor("Yellow");
+    }
+
 
     public static Date filterDateHourTimeNew(String startDateTime) {
         Date originalDate = null;
