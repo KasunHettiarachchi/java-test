@@ -1,15 +1,107 @@
 package com.javaexamples;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.openjdk.jol.vm.VM;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static jdk.nashorn.internal.runtime.Debug.id;
+
 public class Main {
     public static void main(String[] args) throws ParseException, InterruptedException {
+
+        //arabicTest();
+        //test();
+        //isContainsArabic("testing wordنور النبي");
+        timeDiff();
+    }
+
+    private static void timeDiff() {
+        Date date1 = new Date();
+
+        System.out.println(date1.getTime());
+        System.out.println(new Date(date1.getTime()));
+        System.out.println(new Date(date1.getTime() + 19800000));
+    }
+
+    private static boolean isContainsArabic(String word) {
+        if (word != null) {
+            for (int i = 0; i < word.length(); ) {
+                int c = word.codePointAt(i);
+                if (c >= 0x0600 && c <= 0x06FF) {
+                    return true;
+                }
+                i++;
+            }
+        }
+
+        return false;
+    }
+
+    private static void arabicTest() {
+        String name1 = "نور النبي";
+        String name2 = "كولا مياه";
+        String name3 = "";
+        String name4 = "كالا مياه";
+
+        StringBuilder response = new StringBuilder();
+
+        String name = "";
+        response.append(name1);
+        response.append(" " + name2);
+        response.append(" " + name3);
+        response.append(" " + name4);
+
+        System.out.println(response.toString());
+
+        System.out.println(name1 + " " + name2 + " " + name3 + " " + name4);
+    }
+
+    private static void addToSecondList(List<Book> bookList, Book book) {
+        book.setName("Book 2");
+        bookList.add(book);
+    }
+
+    public static void swap(Object o1, Object o2) {
+        System.out.println("swap o1 location = " + id(o1));
+        System.out.println("swap o2 location = " + id(o2));
+
+        Object temp = o1;
+        o1 = o2;
+        o2 = temp;
+
+        System.out.println("swap o1 location = " + id(o1));
+        System.out.println("swap o2 location = " + id(o2));
+    }
+
+    private static void desc(Car car) {
+        System.out.println("desc method car location = " + id(car));
+
+        car.setColor("Red");
+        car = new Car("Green");
+        car.setColor("Yellow");
+    }
+
+    public static Date filterDateHourTimeNew(String startDateTime) {
+        Date originalDate = null;
+
+        try {
+            originalDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startDateTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return originalDate;
+    }
+
+    private static void test() {
         /*Long currentTime = System.currentTimeMillis();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
         Date date = new Date(currentTime);
@@ -259,19 +351,153 @@ public class Main {
 
         System.out.println((double) Math.round(349984.50));
 
-        System.out.println(filterDateHourTimeNew("2022-02-14T00:00:00"));*/
-    }
+        System.out.println(filterDateHourTimeNew("2022-02-14T00:00:00"));
 
-    public static Date filterDateHourTimeNew(String startDateTime) {
-        Date originalDate = null;
+        List<List<Integer>> parent = new ArrayList<>();
+        List<Integer> child = new ArrayList<>();
+        child.add(0);
+        parent.add(child);
 
-        try {
-            originalDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(startDateTime);
-        } catch (Exception e) {
-            e.printStackTrace();
+        System.out.println(parent);
+        System.out.println(id(child));
+
+        int i = 1;
+        while (i < 5) {
+            child.add(i);
+            i += 1;
+
+            System.out.println(child);
+            child = new ArrayList<>();
+            System.out.println(id(child));
         }
 
-        return originalDate;
+        System.out.println(parent);
+        System.out.println(id(parent.get(0)));
+        System.out.println(child);
+        System.out.println(id(child));
+
+        child = null;
+        System.out.println(id(child));
+
+        Car red = new Car("Red");
+        Car yellow = new Car("Yellow");
+        System.out.println("red car location = " + id(red));
+        System.out.println("yellow car location = " + id(yellow));
+
+
+        swap(red, yellow);
+        System.out.println("red car = " + red.getColor());
+        System.out.println("yellow car = " + yellow.getColor());
+
+
+        desc(yellow);
+        System.out.println("yellow car = " + yellow.getColor());
+
+        int i1 = 5;
+        int i2 = i1;
+
+        System.out.println("i1 location = " + id(i1));
+        System.out.println("i2 location = " + id(i2));
+
+        i1 = 6;
+        System.out.println("i1 location = " + id(i1));
+        System.out.println("i2 location = " + id(i2));
+
+        String value = "hello";
+        String secondValue = value;
+        System.out.println(id(value));
+        System.out.println(String.format("%x", VM.current().addressOf(value)));
+
+        System.out.println("----------------------------");
+
+        System.out.println(VM.current().addressOf(value));
+        System.out.println(VM.current().addressOf(secondValue));
+
+        value = "hello world";
+        System.out.println(VM.current().addressOf(value));
+        System.out.println(VM.current().addressOf(secondValue));
+
+        System.out.println("----------------------------");
+
+        int number = 5;
+        int secondNumber = number;
+        System.out.println(VM.current().addressOf(number));
+        System.out.println(VM.current().addressOf(secondNumber));
+
+        number = 6;
+        System.out.println(VM.current().addressOf(number));
+        System.out.println(VM.current().addressOf(secondNumber));
+
+        List<String> list = new ArrayList<>(Collections.singletonList("Geeks"));
+        list.add("a");
+        System.out.println(list);
+
+        List<Integer> intList = new ArrayList<>(Arrays.asList(6, 2, 3, 4));
+        intList.sort(Integer::compareTo);
+        System.out.println(intList);
+
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(new Date());
+        System.out.println(calendar.getTime());
+
+        calendar.add(Calendar.MINUTE, (int) (1.55 * 60));
+        System.out.println(calendar.getTime());
+
+        System.out.println(Math.ceil(2.1));
+
+        // Creating a mutable list using Arrays.asList()
+        List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3));
+
+        // Print the list
+        System.out.println("List : " + list);
+
+        list.add(5);
+        System.out.println("Modified list : " + list);
+
+        // Creating an immutable list using Arrays.asList()
+        List<Integer> list = Arrays.asList(1, 2, 3);
+
+        // Print the list
+        System.out.println("List : " + list);
+
+        list.add(5);
+        System.out.println("Modified list : " + list);
+
+        Book[] books = {
+                new Book("foo", 6, "author1", "pub1"),
+                new Book("bar", 2, "author2", "pub2"),
+                new Book("test", 3, "author3", "pub3")
+        };
+
+        Arrays.sort(books, new Comparator<Book>() {
+            @Override
+            public int compare(Book o1, Book o2) {
+                return o1.id.compareTo(o2.id);
+            }
+        });
+
+        for (Book book : books) {
+            System.out.println(book.getId());
+        }
+
+        List<Book> bookList1 = new ArrayList<>();
+        List<Book> bookList2 = new ArrayList<>();
+
+        Book book = new Book("Book 1");
+        bookList1.add(book);
+
+        addToSecondList(bookList2, book);
+
+        System.out.println(bookList1.get(0).getName());
+        System.out.println(bookList2.get(0).getName());
+
+        Integer num = 1;
+        System.out.println(-num)
+
+        DecimalFormat format = new DecimalFormat("###.##");
+        System.out.println(format.format(12341.0) + " Tablet");*/
     }
 
 }
