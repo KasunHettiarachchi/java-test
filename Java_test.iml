@@ -9,4 +9,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="openjdk.jol.core" level="project" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="fcd6b499-e915-46f0-9bfe-5a60096ae22e" />
+  </component>
 </module>

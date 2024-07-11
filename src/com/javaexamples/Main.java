@@ -18,9 +18,20 @@ public class Main {
     public static void main(String[] args) throws ParseException, InterruptedException {
 
         //arabicTest();
-        //test();
+        //testOld();
         //isContainsArabic("testing wordنور النبي");
-        timeDiff();
+        //timeDiff();
+        test();
+    }
+
+    private static void test() {
+        /*List<String> strList = new ArrayList<>(Arrays.asList("A", "B"));
+        strList.add("C");
+        System.out.println(strList);*/
+
+        /*float value = 0;
+        value += 1;
+        System.out.println(value);*/
     }
 
     private static void timeDiff() {
@@ -101,7 +112,7 @@ public class Main {
         return originalDate;
     }
 
-    private static void test() {
+    private static void testOld() {
         /*Long currentTime = System.currentTimeMillis();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
         Date date = new Date(currentTime);
