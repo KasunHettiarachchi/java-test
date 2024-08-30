@@ -1,4 +1,4 @@
-package com.javaexamples;
+package com.javaexamples.Thread;
 
 public class TestMultiPriority extends Thread {
     public void run() {

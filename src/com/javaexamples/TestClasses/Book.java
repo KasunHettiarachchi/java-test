@@ -1,4 +1,4 @@
-package com.javaexamples;
+package com.javaexamples.TestClasses;
 
 public class Book {
     public Integer getId() {

@@ -1,13 +1,8 @@
 package com.javaexamples;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.openjdk.jol.vm.VM;
+import com.javaexamples.TestClasses.Book;
+import com.javaexamples.TestClasses.Car;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -16,9 +11,9 @@ import static jdk.nashorn.internal.runtime.Debug.id;
 
 public class Main {
     public static void main(String[] args) throws ParseException, InterruptedException {
-
         //arabicTest();
         //testOld();
+        //System.out.println(filterDateHourTimeNew("2022-02-14T00:00:00"));
         //isContainsArabic("testing wordنور النبي");
         //timeDiff();
         test();
