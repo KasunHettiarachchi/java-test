@@ -1,8 +1,8 @@
-package com.javaexamples;
+package com.javaexamples.IoC;
 
 public class IoC {
     public static void main(String[] args) {
-        //PrintName printName = new PrintName();
+        PrintName printName = new PrintName();
 
         IoC ioC = new IoC();
         IoC.AddToDatabase addToDatabase = ioC.new AddToDatabase(ioC.new MySqlDatabase());
@@ -10,9 +10,9 @@ public class IoC {
     }
 
     public class AddToDatabase {
-        Database database;
+        IoC.Database database;
 
-        public AddToDatabase(Database database) {
+        public AddToDatabase(IoC.Database database) {
             this.database = database;
         }
 
@@ -25,7 +25,7 @@ public class IoC {
         public void persist(String data);
     }
 
-    public class MySqlDatabase implements Database {
+    public class MySqlDatabase implements IoC.Database {
 
         @Override
         public void persist(String data) {
@@ -33,16 +33,16 @@ public class IoC {
         }
     }
 
-    public class OracleDatabase implements Database {
+    public class OracleDatabase implements IoC.Database {
         @Override
         public void persist(String data) {
             System.out.println(data + " persisted to OracleDatabase!");
         }
     }
-}
 
-class PrintName {
-    public PrintName() {
-        System.out.println("PrintName called");
+    static class PrintName {
+        public PrintName() {
+            System.out.println("PrintName called");
+        }
     }
 }
