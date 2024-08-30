@@ -1,4 +1,4 @@
-package com.javaexamples;
+package com.javaexamples.Thread;
 
 public class TestDaemonThread extends Thread {
     public void run() {
